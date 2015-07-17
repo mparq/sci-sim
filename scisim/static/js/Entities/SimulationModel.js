@@ -13,6 +13,8 @@
  * @param {[type]} args [description]
  */
 var SimulationModel = function(args) {
+    args = args || {};
+
     this.title = args.title;
     this.id = args.id;
     this.folder_name = args.folder_name;

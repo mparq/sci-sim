@@ -36,8 +36,12 @@ var SimulationPageModel = function(args) {
         this.actions_kv[action.name] = action.value;
     }.bind(this));
 
-    // Array of PageSectionModels
+    // Array of ArrayPageSectionModels
     this.sections = args.sections || [];
+
+    // Array of SimulationPageChoiceModels
+    this.choices = args.choices || [];
+
     this._orderSections();
 };
 
@@ -78,6 +82,14 @@ SimulationPageModel.from_object = function(page) {
         page.sections = sections;
     }
 
+    if (page.choices) {
+        var choices = [];
+        _.each(page.choices, function(choice) {
+            choices.push(SimulationPageChoiceModel.from_object(choice));
+        });
+        page.choices = choices;
+    }
+
     return new SimulationPageModel(page);
 };
 
@@ -94,6 +106,10 @@ SimulationPageModel.prototype.addModifier = function(modifier) {
 SimulationPageModel.prototype.addAction = function(action) {
     this.actions.push(action);
     this.actions_kv[action.name] = action.value;
+};
+
+SimulationPageModel.prototype.addChoice = function(choice) {
+    this.choices.push(choice);
 };
 
 SimulationPageModel.prototype.setTitle = function(title) {

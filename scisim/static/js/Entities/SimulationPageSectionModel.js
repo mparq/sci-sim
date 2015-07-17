@@ -19,6 +19,9 @@
  * @param {{}} args [Object containing key-value pairs received from db]
  */
 var SimulationPageSectionModel = function(args) {
+    args = args || {};
+
+    this.id = args.id;
 
     // Content in raw html. Will need to be formatted by model or application based on type of section
     this.content = args.content;
@@ -55,8 +58,8 @@ SimulationPageSectionModel.TYPES = Object.freeze({
  *
  * See API documentation for more information on object that is passed in.
  *
- * @param  {{}}                 sim     [json objects representing a simulation page section]
- * @return {SimulationModel}            [An SimulationPageSectionModel representing a simulation page section]
+ * @param  {{}}                 sim     json objects representing a simulation page section
+ * @return {SimulationModel}            An SimulationPageSectionModel representing a simulation page section
  */
 SimulationPageSectionModel.from_object = function(section) {
     return new SimulationPageSectionModel(section);
@@ -66,8 +69,8 @@ SimulationPageSectionModel.from_object = function(section) {
  * Set content based to section based on content type. Will be called by
  * the simulation editor when creating a page section
  *
- * @param {String}                  content         [semantic content of section]
- * @param {PageSectionModel.TYPEs}  content_type    [type of content which will determine the raw html]
+ * @param {String}                  content         semantic content of section
+ * @param {PageSectionModel.TYPEs}  content_type    type of content which will determine the raw html
  */
 SimulationPageSectionModel.prototype.setContent = function(content, content_type) {
     // TODO: Add parsing code
