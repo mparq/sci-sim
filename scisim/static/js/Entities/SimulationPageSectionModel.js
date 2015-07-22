@@ -32,6 +32,8 @@ var SimulationPageSectionModel = function(args) {
 
     // Determines whether or not section is displayed or not. Use of this field is questionable.
     this.show = args.show;
+
+    this.isNew = true;
 };
 
 /**
@@ -62,7 +64,9 @@ SimulationPageSectionModel.TYPES = Object.freeze({
  * @return {SimulationModel}            An SimulationPageSectionModel representing a simulation page section
  */
 SimulationPageSectionModel.from_object = function(section) {
-    return new SimulationPageSectionModel(section);
+    section = new SimulationPageSectionModel(section);
+    section.isNew = false;
+    return section;
 };
 
 /**

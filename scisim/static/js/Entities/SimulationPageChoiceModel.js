@@ -6,6 +6,8 @@ var SimulationPageChoiceModel = function(args) {
     this.text = args.text;
     this.destination = args.destination;
     this.tag = args.tag;
+
+    this.isNew = true;
 };
 
 /**
@@ -29,5 +31,23 @@ SimulationPageChoiceModel.TYPES = Object.freeze({
  * @return {SimulationModel}            An SimulationPageSectionModel representing a simulation page section
  */
 SimulationPageChoiceModel.from_object = function(choice) {
-    return new SimulationPageChoiceModel(choice);
+    choice = new SimulationPageChoiceModel(choice);
+    choice.isNew = false;
+    return choice;
+};
+
+SimulationPageChoiceModel.prototype.setType = function(type) {
+    this.type = type;
+};
+
+SimulationPageChoiceModel.prototype.setText = function(text) {
+    this.text = text;
+};
+
+SimulationPageChoiceModel.prototype.setDestination = function(destination) {
+    this.destination = destination;
+};
+
+SimulationPageChoiceModel.prototype.setTag = function(tag) {
+    this.tag = tag;
 };

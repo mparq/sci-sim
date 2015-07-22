@@ -29,6 +29,8 @@ var SimulationModel = function(args) {
     this.library = args.library;
 
     this.pages = args.pages || [];
+
+    this.newSim = true;
 };
 
 /**
@@ -47,8 +49,11 @@ SimulationModel.from_object = function(sim) {
 
     sim = new SimulationModel(sim);
 
+    sim.newSim = false;
+
     // Take the pages given and create SimulationPageModels
     API.getSimulationPages(sim.id).then(function(pages) {
+        console.log(pages);
         var page_models = [];
         _.each(pages, function(page) {
             page_models.push(SimulationPageModel.from_object(page));
@@ -63,4 +68,7 @@ SimulationModel.prototype.addPage = function(page) {
     this.pages.push(page);
 };
 
+SimulationModel.prototype.isNew = function(page) {
+    return this.newSim;
+};
 // TODO: Proper getters and setters if deemed necessary

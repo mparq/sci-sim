@@ -36,10 +36,17 @@ SimulationEditorController.prototype.handleEvent = function(e) {
 
         var menu_idx = e.value;
 
-        if (menu_idx === this.simEditorModel.simulations.length) {
+        console.log(this.simEditorModel.simulations.length);
+        console.log(menu_idx);
+
+        if (menu_idx == this.simEditorModel.simulations.length) {
             // Create New Sim button is clicked
             console.log("Create New Sim");
             this.simEditorModel.addSimulation(new SimulationModel());
+            this.simEditorModel.startEditing(menu_idx);
+            this.renderer.render();
+        } else if (menu_idx < this.simEditorModel.simulations.length) {
+            console.log("Clicked on Menu item " + this.simEditorModel.simulations[menu_idx].title);
             this.simEditorModel.startEditing(menu_idx);
             this.renderer.render();
         }
@@ -85,6 +92,9 @@ SimulationEditorController.prototype.handleEvent = function(e) {
             // TODO: Confirmation that user wants to submit
 
             // TODO: Map fields of page to model
+
+        } else if (widget_name === "submit-section") {
+
 
         }
 
@@ -143,3 +153,5 @@ SimulationEditorController.prototype.initSimulations = function() {
         that.simEditorModel.setReady();
     });
 };
+
+

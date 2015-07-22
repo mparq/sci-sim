@@ -8,7 +8,7 @@
  * The Models will then be used to update the database. The goal is to abstract
  * away that behavior from the Editor/Application
  *
- * @param {{}} args [Object containing key-value pairs received from db]
+ * @param {{}} args Object containing key-value pairs received from db
  */
 var SimulationPageModel = function(args) {
     this.id = args.id;
@@ -42,7 +42,10 @@ var SimulationPageModel = function(args) {
     // Array of SimulationPageChoiceModels
     this.choices = args.choices || [];
 
+    this.isNew = true;
+
     this._orderSections();
+
 };
 
 /**
@@ -50,10 +53,12 @@ var SimulationPageModel = function(args) {
  *
  * See API documentation for more information on object that is passed in.
  *
- * @param  {{}}                 sim     [json objects representing a simulation page]
- * @return {SimulationPageModel}            [A SimulationPageModelrepresenting a simulation]
+ * @param  {{}}                 sim         json objects representing a simulation page
+ * @return {SimulationPageModel}            A SimulationPageModelrepresenting a simulation
  */
 SimulationPageModel.from_object = function(page) {
+
+    page = new SimulationPageModel(page);
 
     // Parse modifiers
     if (page.page_modifiers) {
@@ -90,7 +95,9 @@ SimulationPageModel.from_object = function(page) {
         page.choices = choices;
     }
 
-    return new SimulationPageModel(page);
+    page.isNew = false;
+
+    return page;
 };
 
 SimulationPageModel.prototype.addSection = function(section) {
